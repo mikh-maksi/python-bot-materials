@@ -1,6 +1,6 @@
 lsi: false
 safe: true
-source: https://github.com/mikh-maksi/python-bot-materials/blob/main/day01/message01/
+source: "https://mikh-maksi.github.io/"
 incremental: false
 highlighter: rouge
 gist:
