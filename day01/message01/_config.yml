@@ -1,6 +1,6 @@
 lsi: false
 safe: true
-source: [your repo's top level directory]
+source: https://github.com/mikh-maksi/python-bot-materials/blob/main/day01/message01/
 incremental: false
 highlighter: rouge
 gist:
