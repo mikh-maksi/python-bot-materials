@@ -38,23 +38,47 @@ account = account + int(elements[1])
 print(account) # Выведет 100
 ```
 
-...
-* Вычитание
-* Чтение данных
-* Команды `income` и `costs`
+Но пользователь может добавлять не только доходы, но и расходы и наша программа будет отличать добавлять значение параметра или вычитать по имение команды:
+```py
+account = 0
+string_in = input('Please, enter command with parameter')
+
+elements = string_in.split(' ')
+
+if elements[0]=='/income': 
+    account = account + int(elements[1])
+    string_out = 'Your income is recived.'
+if elements[0]=='/cost':
+    account = account - int(elements[1])
+    string_out = 'Your cost is recived'
+```
+К данному функционалу добавим обработку команды `total`, которая будет выводить итоговое значение счета.
+```py
+account = 0
+string_in = input('Please, enter command with parameter')
+
+elements = string_in.split(' ')
+
+if elements[0]=='/income': 
+    account = account + int(elements[1])
+    string_out = 'Your income is recived.'
+if elements[0]=='/cost':
+    account = account - int(elements[1])
+    string_out = 'Your cost is recived'
+if elements[0]=='/total':
+    string_out = account
+
+
+```
+##  Реализация в боте
+При написании бота добавим обработчик команды `/income`, который будет запускать функцию `income`: `dispatcher.add_handler(CommandHandler('income', income))`. В функции `income` реалиpована функциональность:
+*  `elements = string_in.split(' ')` разделения ввода на части по пробелу (`' '`) и 
+*  `account = account + int(elements[1])` - добавлению значения к переменной `account`, которая хранит текущее состояние вашего счета
+*  `string_out = str(account)` - перевод числовое значение переменной `account` в строковое для вывода пользователю.
 
 ```py
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
-# формируем схему - переменная-флаг задает состояние. После команды - она становится равно 1. При следующем вводе - равной 0.
 account = 0
-
-def costs(update, context):
-    global account
-    string_in = update.message.text
-    elements = string_in.split(' ')
-    account = account - int(elements[1])
-    string_out = str(account)
-    update.message.reply_text(string_out)
 
 def income(update, context):
     global account
@@ -78,15 +102,54 @@ updater = Updater("")
 
 dispatcher = updater.dispatcher
 
-dispatcher.add_handler(CommandHandler('costs', costs))
 dispatcher.add_handler(CommandHandler('income', income))
 dispatcher.add_handler(MessageHandler(Filters.all, echo))
 
+updater.start_polling()
+updater.idle()
+```
+Добавим нашему боту обработчик для команды `/cost` с функционалом аналогичным обработчику команды `/income` с тем лишь отличием, что значение параметра при `/cost` будет уменьшать значение переменной `account`
+
+
+```py
+from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
+account = 0
+
+def income(update, context):
+    global account
+    string_in = update.message.text
+    elements = string_in.split(' ')
+    account = account + int(elements[1])
+    string_out = str(account)
+    update.message.reply_text(string_out)
+
+def cost(update, context):
+    global account
+    string_in = update.message.text
+    elements = string_in.split(' ')
+    account = account - int(elements[1])
+    string_out = str(account)
+    update.message.reply_text(string_out)
+
+
+def echo(update, context):
+    string_in = update.message.text
+
+    if string_in == '/start':
+        string_out = 'Hello! This is own finances bot!'
+    else:
+        string_out = string_in
+
+    update.message.reply_text(string_out)
+
+updater = Updater("")
+
+dispatcher = updater.dispatcher
+
+dispatcher.add_handler(CommandHandler('income', income))
+dispatcher.add_handler(CommandHandler('cost', cost))
+dispatcher.add_handler(MessageHandler(Filters.all, echo))
 
 updater.start_polling()
 updater.idle()
-
 ```
-
-
- 
