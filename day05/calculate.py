@@ -2,7 +2,6 @@ from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 # формируем схему - переменная-флаг задает состояние. После команды - она становится равно 1. При следующем вводе - равной 0.
 account = 0
 
-
 def costs(update, context):
     global account
     string_in = update.message.text
