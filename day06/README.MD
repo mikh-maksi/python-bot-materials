@@ -108,3 +108,51 @@ string_out = check(string_in)
 print(string_out)
 ```
 
+Реализуем проверки ввода:  
+* не пустая строка
+* команда
+* наличие пробела
+* при разделении по пробелу второй элемент - число
+```py
+string_out = ''
+string_in = input("Please, enter command with parameters\n")
+elements = string_in.split(' ')
+
+if not len(string_in) > 0:
+    string_out = 'Your input is empty' #string_out =
+elif not string_in[0]=='/':
+    string_out = 'First symbol of your input is not slash.'#string_out =
+elif not ' ' in string_in:
+    string_out = 'Your input does not contain spaces'#string_out =
+elif not elements[1].isdigit():
+    string_out = 'Parameter of command is not digit'#string_out =
+else:
+    string_out = 'Your input is correct' #string_out =
+print(string_out)
+```
+
+Закодируем все текстовые сообщения такой программы. Для этого создадим список. Наличие той или иной ошибки позволит получить ее номер. И уже по номеру ошибки отправить соответствующее сообщение.
+
+```py
+string_out = ''
+check_strings = ["Your input is correct","Your input is empty","First symbol of your input is not slash.","Your input does not contain spaces","Parameter of command is not digit"]
+
+
+string_in = input("Please, enter command with parameters\n")
+elements = string_in.split(' ')
+
+if not len(string_in) > 0:
+    n=1
+elif not string_in[0]=='/':
+    n=2
+elif not ' ' in string_in:
+    n=3
+elif not elements[1].isdigit():
+    n=4
+else:
+    n=0
+print(check_strings[n])
+```
+Создадим функцию, которая реализует данный функционал.
+
+

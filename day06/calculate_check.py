@@ -1,6 +1,3 @@
-# Использование кнопок
-
-```py
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 
 account = 0
@@ -51,7 +48,7 @@ def echo(update, context):
 
     update.message.reply_text(string_out)
 
-updater = Updater("")
+updater = Updater("2034824924:AAFc0q0PYPezeZ6G5kE10uBWhWSurKks-8A")
 
 dispatcher = updater.dispatcher
 
@@ -62,15 +59,3 @@ dispatcher.add_handler(MessageHandler(Filters.all, echo))
 
 updater.start_polling()
 updater.idle()
-
-```
-
-## Дополнительная функциональность бота
-**Основные:**
-* Кнопки
-* Ввод данных без команд
-* Сохранение данных в файл
-**Дополнительные:**
-* Создание своих категорий
-* Общие вычисления по имеющимся записям
-* Словари
